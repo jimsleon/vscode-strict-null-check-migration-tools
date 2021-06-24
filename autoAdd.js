@@ -10,7 +10,7 @@ const tsc = path.join(vscodeRoot, 'node_modules', 'typescript', 'bin', 'tsc');
 const buildCompletePattern = /Found (\d+) errors?\. Watching for file changes\./gi;
 forStrictNullCheckEligibleFiles(vscodeRoot, () => { }).then(async (files) => {
     const tsconfigPath = path.join(vscodeRoot, config.targetTsconfig);
-    const child = child_process.spawn(tsc, ['-p', tsconfigPath, '--watch']);
+    const child = child_process.spawn('node', [tsc, '-p', tsconfigPath, '--watch']);
     for (const file of files) {
         await tryAutoAddStrictNulls(child, tsconfigPath, file);
     }
